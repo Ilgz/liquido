@@ -23,7 +23,9 @@ class _PyramidShaderState extends State<PyramidShader>
 
   //Micro
   bool _isRecording = false;
+  // TODO: Не используешь? Удаляй!
   late StreamSubscription<NoiseReading> _noiseSubscription;
+  // TODO: Послушай хотя бы чучуть линтер поставь где надо файнел и конст, что бы слева внизу ошибок было 0
   late NoiseMeter _noiseMeter = new NoiseMeter(onError);
   double speed = 0.002;
 
@@ -56,6 +58,7 @@ class _PyramidShaderState extends State<PyramidShader>
   void onData(NoiseReading noiseReading) {
     speed =
         noiseReading.meanDecibel > 80 ? 0.2 : noiseReading.meanDecibel / 10000;
+    // TODO: какой нахрен принт, хотя бы log
     print(noiseReading.meanDecibel);
     if (!this._isRecording) {
       this._isRecording = true;
@@ -104,10 +107,10 @@ class _PyramidShaderState extends State<PyramidShader>
                 width: MediaQuery.of(context).size.width - 24,
                 child: SliderTheme(
                   data: SliderThemeData(
-                    activeTickMarkColor: Colors.transparent,
-                    disabledInactiveTickMarkColor: Colors.transparent,
-                    disabledActiveTickMarkColor: Colors.transparent,
-                    inactiveTickMarkColor: Colors.transparent,
+                      activeTickMarkColor: Colors.transparent,
+                      disabledInactiveTickMarkColor: Colors.transparent,
+                      disabledActiveTickMarkColor: Colors.transparent,
+                      inactiveTickMarkColor: Colors.transparent,
                       thumbColor: Colors.green,
                       thumbShape: RoundSliderThumbShape(enabledThumbRadius: 6)),
                   child: Slider(
@@ -117,7 +120,6 @@ class _PyramidShaderState extends State<PyramidShader>
                           1,
                           1),
                       divisions: 100,
-
                       label: null,
                       onChanged: (value) {
                         setState(() {
