@@ -48,12 +48,8 @@ vec3 hsv2rgb(vec3 c)
     vec3 p = abs(fract(c.xxx + K.xyz) * 6.0 - K.www);
     return c.z * mix(K.xxx, clamp(p - K.xxx, 0.0, 1.0), c.y);
 }
-vec3 hexToRGB(float hex) {
-    float r = mod(hex / 65536.0, 256.0) / 255.0;
-    float g = mod(hex / 256.0, 256.0) / 255.0;
-    float b = mod(hex, 256.0) / 255.0;
-    return vec3(r, g, b);
-}
+
+
 vec4 mainImage(in vec2 fragCoord ) {
 
     vec2 p = fragCoord.xy / iResolution.xy;
@@ -65,7 +61,7 @@ vec4 mainImage(in vec2 fragCoord ) {
     vec2 q;
     vec2 r;
     float f = pattern(p, q, r);
-    vec3 col = hsv2rgb(vec3(fAlphaValueByUser_i, abs(r.y)*3. + .1, r.x + f));  // Adjust the multiplier as needed
+    vec3 col = hsv2rgb(vec3(fAlphaValueByUser_i * 0.9, abs(r.y)*3. + .1, r.x + f));
     // vec3 col = hsv2rgb(vec3(q.x/10. + ltime/100. + .4, abs(r.y)*3. + .1, r.x + f));
     float vig = 1. - pow(4.*(p.x - .5)*(p.x - .5), 10.);
     vig *= 1. - pow(4.*(p.y - .5)*(p.y - .5), 10.);
